@@ -1,0 +1,15 @@
+<button (click)="switchView()">Switch View</button>
+<button (click)="addColumn()">Add Column</button>
+<button (click)="addRow()">Add Row</button>
+<table *ngIf="!transposeView; else transposedView">
+  <tr *ngFor="let row of data">
+    <td *ngFor="let key of objectKeys(row)">{{ row[key] }}</td>
+  </tr>
+</table>
+<ng-template #transposedView>
+  <table>
+    <tr *ngFor="let key of objectKeys(data[0])">
+      <td *ngFor="let row of data">{{ row[key] }}</td>
+    </tr>
+  </table>
+</ng-template>
