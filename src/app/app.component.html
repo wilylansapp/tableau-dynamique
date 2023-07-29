@@ -1,15 +1,99 @@
 <button (click)="switchView()">Switch View</button>
 <button (click)="addColumn()">Add Column</button>
 <button (click)="addRow()">Add Row</button>
+<!-- Condition : Si la variable "transposeView" est évaluée à "false", afficher ce bloc de code. Sinon, afficher le bloc de code contenu dans la balise "ng-template" (tableau transposé) -->
 <table *ngIf="!transposeView; else transposedView">
-  <tr *ngFor="let row of data">
-    <td *ngFor="let key of objectKeys(row)">{{ row[key] }}</td>
-  </tr>
+  <!-- En-tête du tableau -->
+  <thead>
+    <!-- Ligne d'en-tête -->
+    <tr>
+      <!-- Itération à travers les clés de l'objet contenu dans le premier élément du tableau "data" -->
+      <th *ngFor="let key of objectKeys(data[0])">
+        <!-- Affichage du nom de chaque clé comme titre de colonne -->
+        {{ key }}
+      </th>
+      <th>
+        <!-- bouton d'ajout de colonne horizontalement -->
+        <button (click)="addColumn()">+</button>
+      </th>
+    </tr>
+  </thead>
+
+  <!-- Corps du tableau -->
+  <tbody>
+    <!-- Itération à travers chaque élément (ligne) du tableau "data" -->
+    <tr *ngFor="let row of data">
+      <!-- Itération à travers les clés de l'objet (ligne) -->
+      <td *ngFor="let key of objectKeys(row)">
+        <!-- Affichage de la valeur correspondant à chaque clé dans la cellule de données -->
+        {{ row[key] }}
+      </td>
+    </tr>
+  </tbody>
 </table>
+
+<!-- Bloc de code pour le cas où "transposeView" est évalué à "true" (tableau transposé) -->
 <ng-template #transposedView>
   <table>
+    <!-- Itération à travers les clés de l'objet contenu dans le premier élément du tableau "data" (titres des colonnes du tableau transposé) -->
     <tr *ngFor="let key of objectKeys(data[0])">
-      <td *ngFor="let row of data">{{ row[key] }}</td>
+      <!-- En-tête du tableau transposé : Affichage du nom de chaque clé comme titre de ligne -->
+      <th>{{ key }}</th>
+      <!-- Corps du tableau transposé -->
+      <td *ngFor="let row of data">
+        <!-- Itération à travers chaque élément (ligne) du tableau "data" -->
+        <!-- Affichage de la valeur correspondant à chaque clé (titre de colonne) dans la cellule de données -->
+        {{ row[key] }}
+      </td>
+    </tr>
+    <tr>
+      <!-- bouton d'ajout de colonne horizontalement -->
+      <button (click)="addColumn()">+</button>
     </tr>
   </table>
 </ng-template>
+
+<!-- Utilisation de la balise <table> pour commencer le tableau -->
+<table *ngIf="false">
+  <!-- Utilisation de <thead> pour l'en-tête du tableau -->
+  <thead>
+    <!-- Utilisation de <tr> pour une ligne d'en-tête -->
+    <tr>
+      <!-- Utilisation de <th> pour les cellules d'en-tête -->
+      <th>Nom du fruit</th>
+      <th>Couleur</th>
+    </tr>
+  </thead>
+
+  <!-- Utilisation de <tbody> pour le corps du tableau -->
+  <tbody>
+    <!-- Utilisation de <tr> pour une ligne de données -->
+    <tr>
+      <!-- Utilisation de <td> pour les cellules de données -->
+      <td>Pomme</td>
+      <td>Rouge</td>
+    </tr>
+    <tr>
+      <td>Banane</td>
+      <td>Jaune</td>
+    </tr>
+    <tr>
+      <td>Fraise</td>
+      <td>Rouge</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 
+<table> : C'est la balise de base pour créer un tableau HTML. Tout le contenu du tableau est placé entre cette balise d'ouverture <table> et la balise de fermeture </table>.
+
+<thead> : C'est la section d'en-tête du tableau. Il est utilisé pour regrouper les en-têtes des colonnes. Les éléments de l'en-tête sont définis à l'intérieur de la balise <thead>.
+
+<tr> : C'est une balise pour représenter une ligne du tableau, que ce soit pour l'en-tête ou les données. Elle doit être placée à l'intérieur de <thead> ou <tbody>.
+
+<th> : C'est une cellule d'en-tête du tableau. Il est utilisé pour représenter les en-têtes de colonnes. Les balises <th> sont utilisées à l'intérieur de la balise <tr> de l'en-tête.
+
+<tbody> : C'est la section principale du corps du tableau. Il est utilisé pour grouper les données du tableau. Les éléments de données (cellules) sont définis à l'intérieur de la balise <tbody>.
+
+<td> : C'est une cellule de données du tableau. Il est utilisé pour représenter les données proprement dites, comme le nom du fruit et sa couleur. Les balises <td> sont utilisées à l'intérieur des balises <tr> du corps du tableau.
+ -->
